@@ -5,11 +5,12 @@ def remote1 = [:]
     	remote1.user = 'root'
     	remote1.password = 'vagrant'
 	remote1.allowAnyHosts = true
-	// remote1.name = 'deploy1'
-	// remote1.host = '192.168.56.65'
-    	// remote1.user = 'ansible'
-    	// remote1.password = 'ansible'
-	// remote1.allowAnyHosts = true
+def remote2 = [:]
+	remote2.name = 'deploy1'
+	remote2.host = '192.168.56.65'
+    	remote2.user = 'ansible'
+    	remote2.password = 'ansible'
+	remote2.allowAnyHosts = true
 	
 pipeline {
     
@@ -102,7 +103,7 @@ pipeline {
 			steps {
 				unstash 'Source'
 				sh "'${mvnHome}/bin/mvn' clean deploy"
-				// sshPut remote: remote1, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/home/ansible/workspace/ansible-files/ansibleRoles/tomcat/files'		        
+				sshPut remote: remote2, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/home/ansible/workspace/ansible-files/ansibleRoles/tomcat/files'		        
 			}
 			post {
 				always {
