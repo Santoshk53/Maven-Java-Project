@@ -103,7 +103,7 @@ pipeline {
 			steps {
 				unstash 'Source'
 				sh "'${mvnHome}/bin/mvn' clean deploy"
-				sshPut remote: remote1, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/home/ansible/workspace/ansible-files/ansibleRoles/tomcat/files'		        
+				sshPut remote1: remote1, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/home/ansible/workspace/ansible-files/ansibleRoles/tomcat/files'		        
 			}
 			post {
 				always {
