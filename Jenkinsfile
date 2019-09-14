@@ -104,7 +104,8 @@ pipeline {
 				unstash 'Source'
 				sh "'${mvnHome}/bin/mvn' clean deploy"
 				sshPut remote: remote2, from: 'target/java-maven-1.0-SNAPSHOT.war', into: '/home/ansible/workspace/ansible-files/ansibleRoles/tomcat/files'		        
-				sshCommand remote: remote2, command: "mkdir san1"
+				sshCommand remote: remote2, command: "ansible webserver -m ping"
+				sshCommand remote: remote2, command: "ansible webserver -m command --args 'rm -f sharavani'"
 			}
 			post {
 				always {
